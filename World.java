@@ -61,11 +61,11 @@ public class World extends JPanel {
           if (current instanceof Plant && current.actionsRemaining != 0) {
             // if number of plants and empty cells nearby satisfies requirement
             // for pollination, then pollinate 
-            if (nearbyPlants(x, y) == 4 && nearbyEmptyCells(x, y) >= 3) {
+            if (countNearbyPlants(x, y) == 4 && countNearbyEmptyCells(x, y) >= 3) {
               Plant tmp = (Plant) current;
-              Cell[] nearbyEmptyCells = getNearbyEmptyCells(x, y);
-              int rndNum = RandomGenerator.nextNumber(nearbyEmptyCells.length);
-              tmp.pollinate(nearbyEmptyCells, rndNum); // pollinate, pass in nearby cells?
+              Cell[] emptyAdjacentCells = getNearbyEmptyCells(x, y);
+              int rndNum = RandomGenerator.nextNumber(emptyAdjacentCells.length);
+              tmp.pollinate(emptyAdjacentCells, rndNum);
             }
             
           }
@@ -73,7 +73,7 @@ public class World extends JPanel {
           else if (current instanceof Animal && current.actionsRemaining != 0) {
             // change this section later if other animals are introduced
             Herbivore tmp = (Herbivore) current;
-            Cell[] adjacentCells = nearbyCells(x, y);
+            Cell[] adjacentCells = getNearbyCells(x, y);
             int rndNum = RandomGenerator.nextNumber(adjacentCells.length);
             tmp.move(cellArr[x][y], adjacentCells, rndNum);
           }
@@ -118,13 +118,13 @@ public class World extends JPanel {
   }
 
   /**
-   *  nearbyCells: Find the cells adjacent/diagonal to the specified cell.
+   *  getNearbyCells: Find the cells adjacent/diagonal to the specified cell.
    * 
    *  @param col is the column/x index of the specified cell
    *  @param row is the row/y index of the specified cell
    *  @return an array containing the nearby cells
    */
-  private Cell[] nearbyCells(int col, int row) {
+  private Cell[] getNearbyCells(int col, int row) {
     ArrayList<Cell> nearby = new ArrayList<>();
     for (int x = -1; x < 2; x++) {
       for (int y = -1; y < 2; y++) {
@@ -142,12 +142,12 @@ public class World extends JPanel {
   }
 
   /**
-   *  nearbyPlants: Counts the number of plants adjacent/diagonal to the given cell.
+   *  countNearbyPlants: Counts the number of plants adjacent/diagonal to the given cell.
    *  @param col is the given cell's x coordinate
    *  @param row is the given cell's y coordinate
    *  @return the number of plants found nearby
    */
-  private int nearbyPlants(int col, int row) {
+  private int countNearbyPlants(int col, int row) {
     int count = 0;
 
     for (int x = -1; x < 2; x++) {
@@ -166,14 +166,14 @@ public class World extends JPanel {
   }
 
   /**
-   *  nearbyEmptyCells: Counts the number of unoccupied cells around a given cell.
+   *  countNearbyEmptyCells: Counts the number of unoccupied cells around a given cell.
    *  @param col is the given cell's x coordinate
    *  @param row is the given cell's y coordinate
    *  @return the number of empty cells nearby
    */
-  private int nearbyEmptyCells(int col, int row) {
+  private int countNearbyEmptyCells(int col, int row) {
     // get the nearby cells first
-    Cell[] cellsToCheck = nearbyCells(col, row);
+    Cell[] cellsToCheck = getNearbyCells(col, row);
 
     // increment counter and return it for each cell with no occupant
     int count = 0;
