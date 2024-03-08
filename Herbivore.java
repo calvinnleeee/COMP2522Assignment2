@@ -8,7 +8,7 @@ import java.awt.Color;
 public class Herbivore extends Animal {
   
   // variables/attributes
-  
+
   /**
    *  Herbivore constructor. Set its colour and actions per turn
    */

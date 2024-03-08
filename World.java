@@ -99,8 +99,8 @@ public class World extends JPanel {
    *  @param cols is the number of cells in the x-axis.
    */
   private void generateWorld(int rows, int cols) {
-    for (int x = 0; x < cols; x++) {
-      for (int y = 0; y < rows; y++) {
+    for (int y = 0; y < rows; y++) {
+      for (int x = 0; x < cols; x++) {
         Cell tmp = new Cell(cellSize);
         
         // generate random contents
@@ -112,7 +112,7 @@ public class World extends JPanel {
           tmp.setOccupant(new Plant());
         }
         cellArr[x][y] = tmp;
-        add(cellArr[x][y]);
+        add(cellArr[x][y]); 
       }
     }
   }

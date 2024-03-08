@@ -69,7 +69,10 @@ public class Game extends JFrame {
   /**
    *  generateWorld: Supporter method for the constructor, creates and sets
    *  the initial state of the world for the Game of Life.
-   *  
+   * 
+   *  Note: https://docs.oracle.com/javase/8/docs/api/java/awt/GridLayout.html
+   *        ^ API for GridLayout to show how components are added.
+   * 
    *  @param rows is the number of cells in the y-axis.
    *  @param cols is the number of cells in the x-axis.
    *  @param sideLength is the number of pixels for one side of the cell.
@@ -77,7 +80,7 @@ public class Game extends JFrame {
   private void createWorld(int rows, int cols, int sideLength) {
     world = new World(rows, cols, cellSize);
     world.setSize(cols * cellSize, rows * cellSize);
-    world.setLayout(new GridLayout(cols, rows));
+    world.setLayout(new GridLayout(rows, cols));
     world.setBackground(Color.WHITE);
     this.add(world);
     world.setVisible(true);
