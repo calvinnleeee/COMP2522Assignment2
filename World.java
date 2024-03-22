@@ -16,14 +16,11 @@ import java.awt.*;
  *  its cells and their lifeforms.
  *  
  *  @author Calvin Lee
- *  @version 1.0
  */
 public class World extends JPanel {
   
   // constants/variables
   private Cell cellArr[][];                 // array that holds Cells
-  private final int makeHerbivore = 85;     // chance to make an herbivore
-  private final int makePlant = 65;         // chance to make a plant
   private final int cellSize;               // width/height of a cell
 
   private final int xbound;                 // x-axis boundary
@@ -95,6 +92,16 @@ public class World extends JPanel {
     // System.out.println("clicked me!");
   }
 
+/*
+ * if(val >= 80){
+    cell[i][j].addLife(new Herbivore(cell[i][j]));
+  else if(val >= 60)
+      cell[i][j].addLife(new Plant(cell[i][j]));
+  else if(val >= 50){
+    cell[i][j].addLife(new Carnivore(cell[i][j]));
+  else if(val >= 45){
+    cell[i][j].addLife(new Omnivore(cell[i][j]));
+ */
   /**
    *  generateWorld: Set the initial state of the world by filling the
    *  Cell array and randomly generating their contents.
@@ -109,11 +116,17 @@ public class World extends JPanel {
         
         // generate random contents
         int random = RandomGenerator.nextNumber(100);
-        if (random >= makeHerbivore) {
+        if (random >= 80) {
           tmp.setOccupant(new Herbivore(tmp));
         }
-        else if (random >= makePlant) {
+        else if (random >= 60) {
           tmp.setOccupant(new Plant());
+        }
+        else if (random >= 50) {
+          tmp.setOccupant(new Carnivore(tmp));
+        }
+        else if (random >= 45) {
+          tmp.setOccupant(new Omnivore(tmp));
         }
         cellArr[x][y] = tmp;
         add(cellArr[x][y]); 

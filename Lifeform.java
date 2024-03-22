@@ -19,4 +19,9 @@ public abstract class Lifeform {
   // takeAction: to be overwritten by child classes, causes the lifeform to take an action
   abstract void takeAction(Cell[] surroundingCells);
   
+  // canReproduce: checks the surrounding cells to see if the lifeform can reproduce during its turn
+  abstract boolean canReproduce(Cell[] surroundingCells);
+
+  // reproduce: creates a new corresponding lifeform if it can reproduce during its turn
+  abstract void reproduce(Cell[] surroundingCells);
 }

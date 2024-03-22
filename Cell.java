@@ -9,7 +9,6 @@ import java.awt.*;
  *  Cell class, may or may not contain a lifeform in the Game of Life.
  *  
  *  @author Calvin Lee
- *  @version 1.0
  */
 public class Cell extends JComponent {
   

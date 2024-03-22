@@ -1,19 +1,18 @@
 //  package life;
 
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.BorderLayout;
-import java.awt.*;
+// import javax.swing.*;
+// import java.awt.event.*;
+// import java.awt.Graphics;
+// import java.awt.Color;
+// import java.awt.Container;
+// import java.awt.Dialog;
+// import java.awt.BorderLayout;
+// import java.awt.*;
 
 /**
  *  Main driver program for the Game of Life, COMP2522 Assignment 2.
  *  
  *  @author Calvin Lee
- *  @version 1.0
  */
 public class Main {
 

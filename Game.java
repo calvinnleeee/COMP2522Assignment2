@@ -1,7 +1,7 @@
 // package life;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
+// import javax.swing.event.MouseInputListener;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -11,12 +11,11 @@ import java.awt.*;
  *  live in.
  *  
  *  @author Calvin Lee
- *  @version 1.0
  */
 public class Game extends JFrame {
   
   // constants/variables
-  private int turnCount;        // keeps track of turns
+  // private int turnCount;        // keeps track of turns
   private int cellSize;    // x by x size of cell in pixels
   
   private World world;
@@ -48,7 +47,7 @@ public class Game extends JFrame {
     });
     
     // Final things to set up
-    turnCount = 0;
+    // turnCount = 0;
   }
   
   /**
@@ -63,7 +62,7 @@ public class Game extends JFrame {
    *  by one time unit.
    */
   private void updateGame() {
-    turnCount++;
+    // turnCount++;
     world.updateWorld();
   }
   
