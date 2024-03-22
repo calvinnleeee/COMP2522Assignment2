@@ -1,4 +1,4 @@
-// package life;
+//  package life;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,7 +20,7 @@ public class Main {
   // number rows and cols to display to the player
   private static int rows = 25;
   private static int cols = 25;
-  private static int sideLength = 20;   // length of a side in pixels
+  private static int sideLength = 30;   // length of a side in pixels
   
   /**
    * Main program. Runs the Game of Life.

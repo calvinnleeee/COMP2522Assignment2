@@ -10,6 +10,9 @@ public abstract class Animal extends Lifeform {
 
   // counter that keeps track of how long the animal last ate
   int turnsSinceEaten;
+
+  // 
+  Cell ownCell;
   
   /**
    *  Animal interface constructor, initially sets turnsSinceEaten.
@@ -27,9 +30,14 @@ public abstract class Animal extends Lifeform {
   
   /**
    *  move: The calling animal is attempting to move to an adjacent cell.
-   *  @param currentCell is the cell the animal currently inhabits
-   *  @param nearbyCells is an array containing the cells adjacent/diagonal to the Animal
-   *  @param index is a random number to choose which cell to move into
+   *  @param targetCell is the target cell for this animal to move to.
    */
-  abstract void move(Cell currentCell, Cell[] nearbyCells, int index);
+  abstract void move(Cell targetCell);
+
+  /**
+   * isEdible: The calling animal checks if the target Lifeform is edible by them.
+   * @param target is the lifeform to check.
+   * @return true if the target is edible by this Animal, else false.
+   */
+  abstract boolean isEdible(Lifeform target);
 }

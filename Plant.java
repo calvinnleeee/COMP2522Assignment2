@@ -8,36 +8,80 @@ import java.awt.Color;
  *  @author Calvin Lee
  *  @version 1.0
  */
-public class Plant extends Lifeform {
-  
-  // constants/attributes
+public class Plant extends Lifeform implements edibleByHerbivore, edibleByOmnivore {
+
+  // the minimum number of plants nearby to allow pollination
+  private int pollinateCondition = 2;
+
+  // the minimum number of empty cells nearby to allow pollination
+  private int emptyCondition = 3;
   
   /**
-   *  Plant constructor. Set its colour and actions per turn.
+   *  Plant constructor. Set its colour and action flag.
    */
   public Plant() {
     colour = Color.GREEN;
-    actionsRemaining = 1;
-  }
-
-  /**
-   *  die: Implementation of method from Lifeform interface.
-   */
-  public void die() {
-
+    hasAction = true;
   }
   
   /**
-   *  pollinate: The Plant attempts to procreate by spreading to a nearby cell
+   *  takeAction: Inherited from Lifeform. The plant attempts to pollinate to a nearby cell
    *  based on how many nearby plants there are.
-   *  @param nearbyCells is the array of empty cells to choose from
-   *  @param index is the empty cell selected by the random generator 
+   *  @param nearbyCells is the array of cells surrounding the plant
    */
-  public void pollinate(Cell[] nearbyCells, int index) {
-    // create a new plant at the given cell, but don't let it take actions until the next update
-    nearbyCells[index].setOccupant(new Plant());
-    nearbyCells[index].getOccupant().actionsRemaining = 0;
-    actionsRemaining--;
+  public void takeAction(Cell[] surroundingCells) {
+
+    if (countNearbyPlants(surroundingCells) >= pollinateCondition
+      && countNearbyEmptyCells(surroundingCells) >= emptyCondition) {
+
+      int target = RandomGenerator.nextNumber(surroundingCells.length);
+      int itr = 0;
+      int i = 0;
+      boolean done = false;
+      // count empty cells and loop until i == target
+      while (!done) {
+        if (!surroundingCells[itr].isOccupied()) {
+          if (i == target) {
+            surroundingCells[itr].setOccupant(new Plant());
+            surroundingCells[itr].getOccupant().hasAction = false;
+            done = true;
+            continue;
+          }
+          else i++;
+        }
+        itr++;
+        if (itr == surroundingCells.length) itr = 0;
+      }
+    }
+    
+    hasAction = false;
   }
-  
+
+  /**
+   * countNearbyPlants: Count the number of plants surrounding this plant.
+   * @param surroundingCells is an array containing the cells that surround this plant
+   * @return the number of plants next to this plant
+   */
+  private int countNearbyPlants(Cell[] surroundingCells) {
+    int count = 0;
+    for (int i = 0; i < surroundingCells.length; i++) {
+      if (surroundingCells[i].isOccupied()) {
+        if (surroundingCells[i].getOccupant() instanceof Plant) count++;
+      }
+    }
+    return count;
+  }
+
+  /**
+   * countNearbyEmptyCells: Count the number of empty cells surrounding this plant.
+   * @param surroundingCells is an array containing the cells that surround this plant
+   * @return the number of empty cells surrounding this plant
+   */
+  private int countNearbyEmptyCells(Cell[] surroundingCells) {
+    int count = 0;
+    for (int i = 0; i < surroundingCells.length; i++) {
+      if (!surroundingCells[i].isOccupied()) count++;
+    }
+    return count;
+  }
 }

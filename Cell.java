@@ -2,7 +2,7 @@
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import java.awt.event.*;
+// import java.awt.event.*;
 import java.awt.*;
 
 /**
@@ -34,8 +34,7 @@ public class Cell extends JComponent {
   /**
    *  isOccupied: Checks if the Cell is occupied by a lifeform.
    *  
-   *  @return 0 if the cell is not occupied, otherwise a positive integer
-   *    indicating what the occupant is.
+   *  @return true if occupied, false otherwise.
    */
   public boolean isOccupied() {
     return occupant == null ? false : true;

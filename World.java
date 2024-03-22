@@ -57,26 +57,30 @@ public class World extends JPanel {
         if (cellArr[x][y].isOccupied()) {
 
           Lifeform current = cellArr[x][y].getOccupant();
-          // if the current occupant is a plant and has an action left to take
-          if (current instanceof Plant && current.actionsRemaining != 0) {
-            // if number of plants and empty cells nearby satisfies requirement
-            // for pollination, then pollinate 
-            if (countNearbyPlants(x, y) == 4 && countNearbyEmptyCells(x, y) >= 3) {
-              Plant tmp = (Plant) current;
-              Cell[] emptyAdjacentCells = getNearbyEmptyCells(x, y);
-              int rndNum = RandomGenerator.nextNumber(emptyAdjacentCells.length);
-              tmp.pollinate(emptyAdjacentCells, rndNum);
-            }
+          // get the cell's surrounding cells, pass it as argument to lifeform's takeAction method
+          Cell[] surroundingCells = getNearbyCells(x, y);
+          current.takeAction(surroundingCells);
+
+          // // if the current occupant is a plant and has an action left to take
+          // if (current instanceof Plant && current.actionsRemaining != 0) {
+          //   // if number of plants and empty cells nearby satisfies requirement
+          //   // for pollination, then pollinate 
+          //   if (countNearbyPlants(x, y) == 4 && countNearbyEmptyCells(x, y) >= 3) {
+          //     Plant tmp = (Plant) current;
+          //     Cell[] emptyAdjacentCells = getNearbyEmptyCells(x, y);
+          //     int rndNum = RandomGenerator.nextNumber(emptyAdjacentCells.length);
+          //     tmp.pollinate(emptyAdjacentCells, rndNum);
+          //   }
             
-          }
-          // if the current occupant is an animal and has a remaining action to take
-          else if (current instanceof Animal && current.actionsRemaining != 0) {
-            // change this section later if other animals are introduced
-            Herbivore tmp = (Herbivore) current;
-            Cell[] adjacentCells = getNearbyCells(x, y);
-            int rndNum = RandomGenerator.nextNumber(adjacentCells.length);
-            tmp.move(cellArr[x][y], adjacentCells, rndNum);
-          }
+          // }
+          // // if the current occupant is an animal and has a remaining action to take
+          // else if (current instanceof Animal && current.actionsRemaining != 0) {
+          //   // change this section later if other animals are introduced
+          //   Herbivore tmp = (Herbivore) current;
+          //   Cell[] adjacentCells = getNearbyCells(x, y);
+          //   int rndNum = RandomGenerator.nextNumber(adjacentCells.length);
+          //   tmp.move(cellArr[x][y], adjacentCells, rndNum);
+          // }
         }
       }
     }
@@ -84,7 +88,7 @@ public class World extends JPanel {
     // reset action counter for all lifeforms in the world to prepare for next update
     for (int x = 0; x < xbound; x++) {
       for (int y = 0; y < ybound; y++) {
-        if (cellArr[x][y].isOccupied()) cellArr[x][y].getOccupant().actionsRemaining++;
+        if (cellArr[x][y].isOccupied()) cellArr[x][y].getOccupant().hasAction = true;
       }
     }
     repaint();
@@ -106,7 +110,7 @@ public class World extends JPanel {
         // generate random contents
         int random = RandomGenerator.nextNumber(100);
         if (random >= makeHerbivore) {
-          tmp.setOccupant(new Herbivore());
+          tmp.setOccupant(new Herbivore(tmp));
         }
         else if (random >= makePlant) {
           tmp.setOccupant(new Plant());

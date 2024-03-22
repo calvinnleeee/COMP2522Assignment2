@@ -35,6 +35,7 @@ public class Game extends JFrame {
     cellSize = sideLength;
     setSize(cols * cellSize, rows * cellSize);
     setResizable(false);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     // Create new world object with appropriate size
     createWorld(rows, cols, cellSize);
