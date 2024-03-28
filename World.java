@@ -1,14 +1,14 @@
 // package life;
 
 import javax.swing.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dialog;
-import java.awt.BorderLayout;
-import java.awt.*;
+// import java.awt.event.*;
+// import java.awt.Graphics;
+// import java.awt.Color;
+// import java.awt.Container;
+// import java.awt.Dialog;
+// import java.awt.BorderLayout;
+// import java.awt.*;
 
 
 /**
@@ -57,27 +57,6 @@ public class World extends JPanel {
           // get the cell's surrounding cells, pass it as argument to lifeform's takeAction method
           Cell[] surroundingCells = getNearbyCells(x, y);
           current.takeAction(surroundingCells);
-
-          // // if the current occupant is a plant and has an action left to take
-          // if (current instanceof Plant && current.actionsRemaining != 0) {
-          //   // if number of plants and empty cells nearby satisfies requirement
-          //   // for pollination, then pollinate 
-          //   if (countNearbyPlants(x, y) == 4 && countNearbyEmptyCells(x, y) >= 3) {
-          //     Plant tmp = (Plant) current;
-          //     Cell[] emptyAdjacentCells = getNearbyEmptyCells(x, y);
-          //     int rndNum = RandomGenerator.nextNumber(emptyAdjacentCells.length);
-          //     tmp.pollinate(emptyAdjacentCells, rndNum);
-          //   }
-            
-          // }
-          // // if the current occupant is an animal and has a remaining action to take
-          // else if (current instanceof Animal && current.actionsRemaining != 0) {
-          //   // change this section later if other animals are introduced
-          //   Herbivore tmp = (Herbivore) current;
-          //   Cell[] adjacentCells = getNearbyCells(x, y);
-          //   int rndNum = RandomGenerator.nextNumber(adjacentCells.length);
-          //   tmp.move(cellArr[x][y], adjacentCells, rndNum);
-          // }
         }
       }
     }
@@ -92,16 +71,6 @@ public class World extends JPanel {
     // System.out.println("clicked me!");
   }
 
-/*
- * if(val >= 80){
-    cell[i][j].addLife(new Herbivore(cell[i][j]));
-  else if(val >= 60)
-      cell[i][j].addLife(new Plant(cell[i][j]));
-  else if(val >= 50){
-    cell[i][j].addLife(new Carnivore(cell[i][j]));
-  else if(val >= 45){
-    cell[i][j].addLife(new Omnivore(cell[i][j]));
- */
   /**
    *  generateWorld: Set the initial state of the world by filling the
    *  Cell array and randomly generating their contents.
@@ -156,72 +125,5 @@ public class World extends JPanel {
     Cell[] nearbyArr = new Cell[nearby.size()];
     nearby.toArray(nearbyArr);
     return nearbyArr;
-  }
-
-  /**
-   *  countNearbyPlants: Counts the number of plants adjacent/diagonal to the given cell.
-   *  @param col is the given cell's x coordinate
-   *  @param row is the given cell's y coordinate
-   *  @return the number of plants found nearby
-   */
-  private int countNearbyPlants(int col, int row) {
-    int count = 0;
-
-    for (int x = -1; x < 2; x++) {
-      for (int y = -1; y < 2; y++) {
-        // don't add the input cell to the list, we want the ones around it
-        if (x != 0 || y != 0) {
-          if (col + x < 0 || col + x >= xbound || row + y < 0 || row + y >= ybound) continue;
-          if (cellArr[col + x][row + y].isOccupied()
-              && cellArr[col + x][row + y].getOccupant() instanceof Plant) {
-                count++;
-          }
-        }
-      }
-    }
-    return count;
-  }
-
-  /**
-   *  countNearbyEmptyCells: Counts the number of unoccupied cells around a given cell.
-   *  @param col is the given cell's x coordinate
-   *  @param row is the given cell's y coordinate
-   *  @return the number of empty cells nearby
-   */
-  private int countNearbyEmptyCells(int col, int row) {
-    // get the nearby cells first
-    Cell[] cellsToCheck = getNearbyCells(col, row);
-
-    // increment counter and return it for each cell with no occupant
-    int count = 0;
-    for (Cell c : cellsToCheck) {
-      if (!c.isOccupied()) count++;
-    }
-    return count;
-  }
-
-  /**
-   *  getNearbyEmptyCells: Find the empty cells adjacent/diagonal to the specified cell.
-   *  @param col is the x-coordinate of the given cell
-   *  @param row is the y-coordinate of the given cell
-   *  @return an array of empty cells
-   */
-  private Cell[] getNearbyEmptyCells(int col, int row) {
-    ArrayList<Cell> nearby = new ArrayList<>();
-    for (int x = -1; x < 2; x++) {
-      for (int y = -1; y < 2; y++) {
-        // don't add the input cell to the list, we want the ones around it
-        if (x != 0 || y != 0) {
-          // move on if the cell is out of bounds, add if it's unoccupied
-          if (col + x < 0 || col + x >= xbound || row + y < 0 || row + y >= ybound) continue;
-          if (!cellArr[col + x][row + y].isOccupied()) nearby.add(cellArr[col + x][row + y]);
-        }
-      }
-    }
-
-    Cell[] nearbyEmptyArr = new Cell[nearby.size()];
-    nearby.toArray(nearbyEmptyArr);
-    return nearbyEmptyArr;
-  }
-  
+  } 
 }

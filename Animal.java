@@ -11,7 +11,7 @@ public abstract class Animal extends Lifeform {
   // counter that keeps track of how long the animal last ate
   int turnsSinceEaten;
 
-  // 
+  // Animal's current cell
   Cell ownCell;
   
   /**
