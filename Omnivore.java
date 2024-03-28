@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * 
  *  @author Calvin Lee
  */
-public class Omnivore extends Animal implements edibleByOmnivore {
+public class Omnivore extends Animal implements edibleByCarnivore {
   
   /**
    *  Omnivore constructor. Set its colour, action flag, and let it know where it is.
